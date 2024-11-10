@@ -1,0 +1,862 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TheEvenet</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/static/images/img/favicon.png" rel="icon">
+  <link href="/static/images/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/static/app1/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/static/app1/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/app1/animate/animate.min.css" rel="stylesheet">
+  <link href="/static/app1/venobox/venobox.css" rel="stylesheet">
+  <link href="/static/app1/owlcarousel/assets/owl.carousel.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/static/css/style.css" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    #Signup {
+        background: url("/static/images/img/intro-bg.jpg") no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        height: 500px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .form-container {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .sign-in-container,
+    .sign-up-container {
+        width: 50%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(208, 208, 209, 0.11);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        box-shadow: 0 15px 25px rgba(46, 46, 46, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .sign-in-container {
+        left: 0;
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .sign-up-container {
+        left: 0;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .auth-container.right-panel-active .sign-in-container {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    .auth-container.right-panel-active .sign-up-container {
+        transform: translateX(100%);
+        opacity: 1;
+        z-index: 5;
+    }
+
+    .overlay-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        transition: transform 0.6s ease-in-out;
+        z-index: 100;
+    }
+
+    .overlay {
+        background: linear-gradient(to right, #00ddff, #01002d);
+        color: #ffffff;
+        position: relative;
+        left: -100%;
+        height: 100%;
+        width: 200%;
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
+    }
+
+    .auth-container.right-panel-active .overlay-container {
+        transform: translateX(-100%);
+    }
+
+    .auth-container.right-panel-active .overlay {
+        transform: translateX(50%);
+    }
+
+    .overlay-panel {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 40px;
+        text-align: center;
+        top: 0;
+        height: 100%;
+        width: 50%;
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
+    }
+
+    .overlay-left {
+        transform: translateX(-20%);
+    }
+
+    .auth-container.right-panel-active .overlay-left {
+        transform: translateX(0);
+    }
+
+    .overlay-right {
+        right: 0;
+        transform: translateX(0);
+    }
+
+    .auth-container.right-panel-active .overlay-right {
+        transform: translateX(20%);
+    }
+
+    .social-button {
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-button img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .social-icons a {
+        color: white;
+        margin: 0 10px;
+        font-size: 1.5em;
+        transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+        color: #00ddff;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+</style>
+</head>
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
+        <a href="#intro" class="scrollto"><img src="/static/images/img/logo.png" alt="" title=""></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#intro">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#speakers">Events</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#venue">Venue</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+          <li><a href="/login/">Log Out</a></li>
+          </ul>
+          </li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <h1 class="mb-4 pb-0">Crafting<br><span>Unforgettable</span> Experiences</h1>
+      <p class="mb-4 pb-0">Exclusive events, priceless memories</p>
+      <a href="#" class="venobox play-btn mb-4" data-vbtype="video"data-autoplay="true"></a>
+      <a href="#about" class="about-btn scrollto">Explore</a>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!--==========================
+      About Section
+    ============================-->
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <h3>Computer Science Department</h3>
+            <h2>Vision</h2>
+            <p>To be a centre-of-excellence by imbibing state-of-the-art technology in the field of Computer Science and Engineering, thereby enabling students to excel professionally and be ethical.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9">
+            <h2>Mission</h2>
+            <p>1. Adapting best teaching and learning techniques that cultivates Questioning and Reasoning culture among the students.</p>
+            <p>2. Creating collaborative learning environment that ignites the critical thinking in students and leading to the innovation.</p>
+            <p>3. Establishing Industry Institute relationship to bridge the skill gap and make them industry ready and relevant.</p>
+            <p>4. Mentoring students to be socially responsible by inculcating ethical and moral values.</p>
+          </div>
+          </div>
+        </div>
+    </section>
+
+    <!--==========================
+      Speakers Section
+    ============================-->
+    <section id="speakers" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Events</h2>
+          <p>Scheduled for this year</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/1.jpeg" alt="Event 1" class="img-fluid">
+              <div class="details">
+                <h3><a href="Frisson.html">FRISSON-2K24</a></h3>
+                <p>20-21 July</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/3.jpeg" alt="Event 3" class="img-fluid">
+              <div class="details">
+                <h3><a href="/cquest/">App Development Workshop</a></h3>
+                <p>5-6 Aug</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/2.jpeg" alt="Event 2" class="img-fluid">
+              <div class="details">
+                <h3><a href="/App/">C Quest</h3>
+                <p>17 August</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/5.jpeg" alt="Event 4" class="img-fluid">
+              <div class="details">
+                <h3><a href="">Aarohana</a></h3>
+                <p>26 August</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/4.jpeg" alt="Event 5" class="img-fluid">
+              <div class="details">
+                <h3><a href="">BPL Championship</a></h3>
+                <p>2-5 September</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+              <img src="/static/images/img/Events/6.jpeg" alt="Event 6" class="img-fluid">
+              <div class="details">
+                <h3><a href="">Alumni Meet</a></h3>
+                <p>9 September</p>
+                <div class="social">
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                  <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Schedule Section
+    ============================-->
+    <section id="schedule" class="section-with-bg">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h2>Event Schedule</h2>
+          <p>Here is our event schedule</p>
+        </div>
+
+        <h3 class="sub-heading">Register for the ones you're interested and add to calender to get reminder.</h3>
+
+        <div class="tab-content row justify-content-center">
+
+          <!-- July -->
+          <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="July">
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>20 July</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/1.jpeg" alt="Frisson">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">Frisson-2k24<span> Day 1</span></h4>
+                <p>Technical Events</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>21 July</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/1.jpeg" alt="Frisson">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">Frisson-2k24<span> Day 2</span></h4>
+                <p>Non-Technical Events</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>5-6 Aug</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/3.jpeg" alt="App Dev">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">App Development</h4>
+                <p>Workshop</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>17 August</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/2.jpeg" alt="C Quest">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">C Quest</h4>
+                <p>Technical Fest</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>26 August</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/4.jpeg" alt="Aarohana">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">Aarohana</h4>
+                <p>Cultural Fest</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>2-5 September</time></div>
+              <div class="col-md-10">
+                <div class="speaker">
+                  <img src="/static/images/img/Events/5.jpeg" alt="BPL">
+                </div>
+                <h4 style="color: rgb(238, 43, 43);">BPL Tournament</h4>
+                <p>Cricket, Throw Ball, Badminton</p>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <!--==========================
+      Venue Section
+    ============================-->
+    <section id="venue" class="wow fadeInUp">
+
+      <div class="container-fluid">
+
+        <div class="section-header">
+          <h2>Event Venue</h2>
+          <p>Event venue location info and gallery</p>
+        </div>
+
+        <div class="row no-gutters">
+          <div class="col-lg-6 venue-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7727.450084691925!2d75.90158!3d14.443003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bba2561b45cd815%3A0x4736841a4844a2a0!2sBIET%2C%20Davanagere%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1720631357775!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+
+          <div class="col-lg-6 venue-info">
+            <div class="row justify-content-center">
+              <div class="col-11 col-lg-9">
+                <h3>Bapuji Institute of Engineering and Technology</h3>
+                <p>Bapuji Educational Association (BEA) is a conglomerate of over 50 educational institutions across the city of Davangere. The Association was established in the year 1958 with the inception of a first grade college in Davangere.</p>
+                <p> The Bapuji Educational Association is one of the oldest and most prestigious educational associations in Karnataka.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-fluid venue-gallery-container">
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/1.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/1.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/2.jpeg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/2.jpeg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/3.jpeg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/3.jpeg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/4.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/4.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/5.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/5.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/6.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/6.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/7.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/7.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="/static/images/img/venue-gallery/8.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="/static/images/img/venue-gallery/8.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Gallery Section
+    ============================-->
+    <section id="gallery" class="wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Gallery</h2>
+          <p>Check our gallery from the recent events</p>
+        </div>
+      </div>
+
+      <div class="owl-carousel gallery-carousel">
+        <a href='/static/images/img/gallery/1.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/1.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/2.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/2.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/3.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/3.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/4.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/4.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/5.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/5.JPG'  alt=""></a>
+        <a href='/static/images/img/gallery/6.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/6.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/7.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/7.JPG' alt=""></a>
+        <a href='/static/images/img/gallery/8.JPG' class="venobox" data-gall="gallery-carousel"><img src='/static/images/img/gallery/8.JPG' alt=""></a>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Sponsors Section
+    ============================-->
+    <section id="sponsors" class="section-with-bg wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Sponsors</h2>
+        </div>
+
+        <div class="row no-gutters sponsors-wrap clearfix">
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src='/static/images/img/sponsors/1.png' class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src='/static/images/img/sponsors/2.png' class="img-fluid" alt="">
+            </div>
+          </div>
+        
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src='/static/images/img/sponsors/3.png' class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src='/static/images/img/sponsors/4.png' class="img-fluid" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!--==========================
+      F.A.Q Section
+    ============================-->
+    <section id="faq" class="wow fadeInUp">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h2>F.A.Q </h2>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+              <ul id="faq-list">
+
+                <li>
+                  <a data-toggle="collapse" class="collapsed" href="#faq1">Do I need a college email to register? <i class="fa fa-minus-circle"></i></a>
+                  <div id="faq1" class="collapse" data-parent="#faq-list">
+                    <p>
+                      Yes, a valid college email is required to create an account and register for events.
+                    </p>
+                  </div>
+                </li>
+      
+                <li>
+                  <a data-toggle="collapse" href="#faq2" class="collapsed">Can I register for multiple events? <i class="fa fa-minus-circle"></i></a>
+                  <div id="faq2" class="collapse" data-parent="#faq-list">
+                    <p>
+                      Absolutely! You can register for as many events as you like. But make sure timings won't overlap.</p>
+                  </div>
+                </li>
+      
+                <li>
+                  <a data-toggle="collapse" href="#faq3" class="collapsed">What if i need to cancel my registration? <i class="fa fa-minus-circle"></i></a>
+                  <div id="faq3" class="collapse" data-parent="#faq-list">
+                    <p>
+                      You can cancel your registration through website contact form but for refund terms and conditions are applied.
+                    </p>
+                  </div>
+                </li>
+      
+                <li>
+                  <a data-toggle="collapse" href="#faq4" class="collapsed">Is there on-spot or offline registrations? <i class="fa fa-minus-circle"></i></a>
+                  <div id="faq4" class="collapse" data-parent="#faq-list">
+                    <p>
+                      No, only online registrations through online website.</p>
+                  </div>
+                </li>
+      
+                <li>
+                  <a data-toggle="collapse" href="#faq5" class="collapsed">How can I stay Updated on event announcements? <i class="fa fa-minus-circle"></i></a>
+                  <div id="faq5" class="collapse" data-parent="#faq-list">
+                    <p>
+                     Follow us on social media or check our website regularly for the latest updates and announcements.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!--==========================
+      Subscribe Section
+    ============================-->
+    <section id="subscribe">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h2>Contact</h2>
+          <p> For any queries contact us on our social media and</p>
+          <p> Do follow for latest updates and subscribe</p>
+        </div>
+
+        <form method="POST" action="#">
+          <div class="form-row justify-content-center">
+            <div class="col-auto">
+              <input type="text" class="form-control" placeholder="Enter your Email">
+            </div>
+            <div class="col-auto">
+              <button type="submit">Subscribe</button><br>
+            </div>
+            <div class="form-row flex space-x-4 mb-4">
+              <button class="social-button"><img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" alt="Facebook"></button>
+              <button class="social-button"><img src="https://img.icons8.com/fluent/48/000000/google-logo.png" alt="Google"></button>
+              <button class="social-button"><img src="https://img.icons8.com/fluent/48/000000/linkedin.png" alt="LinkedIn"></button>
+          </div>
+          </div>    
+        </form>
+
+      </div>
+    </section>
+
+    <!--==========================
+      Feedback Section
+    ============================-->
+    <section id="feedback" class="section-bg wow fadeInUp">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Feedback</h2>
+        </div>
+
+        <div class="row contact-info">
+
+          <div class="col-md-4">
+            <div class="contact-address">
+              <i class="ion-ios-location-outline"></i>
+              <h3>Address</h3>
+              <address>BIET, Davangere, 577005.</address>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-phone">
+              <i class="ion-ios-telephone-outline"></i>
+              <h3>Phone Number</h3>
+              <p><a href="tel:+155895548855">+91 1234567809</a></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-email">
+              <i class="ion-ios-email-outline"></i>
+              <h3>Email</h3>
+              <p><a href="mailto:info@example.com">TheEvenet@gmail.com</a></p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form">
+          <div id="sendmessage">Your message has been sent. Thank you!</div>
+          <div id="errormessage"></div>
+          <form action="" method="post" role="form" class="contactForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                <div class="validation"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+              <div class="validation"></div>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div>
+
+      </div>
+    </section><!-- #Feedback -->
+<main>
+  
+<!--==========================
+  Footer
+============================-->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-6 col-md-6 footer-info">
+          <img src="/static/images/img/logo.png" alt="TheEvenet">
+          <p>    Departmental event management system which schedules and handles all the events and its overall process in BIET, DVG.</p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h4>Contact Us</h4>
+          <p>
+            BIET<br>
+            Davangere, 577005<br>
+            Karnataka. <br>
+            <strong>Phone:</strong> +91 1234567809<br>
+            <strong>Email:</strong> TheEvenet@gmail.com<br>
+          </p>
+
+          <div class="social-links">
+            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong>TheEvenet</strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      
+    </div>
+  </div>
+</footer><!-- #footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="/static/app1/jquery/jquery.min.js"></script>
+<script src="/static/app1/jquery/jquery-migrate.min.js"></script>
+<script src="/static/app1/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/app1/easing/easing.min.js"></script>
+<script src="/static/app1/superfish/hoverIntent.js"></script>
+<script src="/static/app1/superfish/superfish.min.js"></script>
+<script src="/static/app1/wow/wow.min.js"></script>
+<script src="/static/app1/venobox/venobox.min.js"></script>
+<script src="/static/app1/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Form JavaScript File -->
+<script src="/static/images/contactform/contactform.js"></script>
+
+<!-- Template Main Javascript File -->
+<script src="/static/js/main.js"></script>
+</body>
+</html>

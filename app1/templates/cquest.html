@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TheEvenet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <!-- Favicons -->
+  <link href="/static/images/img/favicon.png" rel="icon">
+  <link href="/static/images/img/apple-touch-icon.png" rel="apple-touch-icon">
+ 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800"
+    rel="stylesheet">
+ 
+  <!-- Bootstrap CSS File -->
+  <link href="/static/app1/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ 
+  <!-- Libraries CSS Files -->
+  <link href="/static/app1/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/app1/animate/animate.min.css" rel="stylesheet">
+  <link href="/static/app1/venobox/venobox.css" rel="stylesheet">
+  <link href="/static/app1/owlcarousel/assets/owl.carousel.css" rel="stylesheet">
+ 
+  <!-- Main Stylesheet File -->
+  <link href="/static/css/style.css" rel="stylesheet">
+ 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header" class="header-fixed">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
+        <a href="/index/#intro" class="scrollto"><img src="/static/images/img/logo.png" alt="" title=""></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/index/#intro">Home</a></li>
+          <li><a href="/index/#about">About</a></li>
+          <li><a href="/index/#speakers">Events</a></li>
+          <li><a href="/index/#schedule">Schedule</a></li>
+          <li><a href="/index/#venue">Venue</a></li>
+          <li><a href="/index/#gallery">Gallery</a></li>
+          <li><a href="/index/#contact">Contact</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <main id="main" class="main-page">
+
+    <!--==========================
+      Speaker Details Section
+    ============================-->
+    <section id="speakers-details" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header">
+          <h2>App Development Workshop</h2>
+          <p>5-6 Aug</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <img src="/static/images/img/Events/3.jpeg" alt="Event 3" class="img-fluid">
+          </div>
+
+          <div class="col-md-6">
+            <div class="details">
+              <h2>🎉 Welcome to App Development Workshop 🚀</h2>
+              <div class="social">
+                <a href="" style="margin-right: 10px;"><i class="fa fa-twitter"></i></a>
+                <a href="" style="margin-right: 10px;"><i class="fa fa-facebook"></i></a>
+                <a href="" style="margin-right: 10px;"><i class="fa fa-instagram"></i></a>
+              </div>
+              <p>The App Development Workshop is an immersive session designed for aspiring developers to learn the fundamentals of creating mobile applications.</p>
+              <p>Participants will be guided through the process of app development, from conceptualization and design to coding and deployment. Experienced instructors will provide hands-on training in popular development frameworks and tools, enabling attendees to build their own functional apps by the end of the workshop.</p>
+              <p>This workshop is an excellent opportunity to gain practical skills and insights into the world of app development. Whether you're a coding wizard, a robotics enthusiast, or a budding engineer, this workshop offers a unique platform to unleash your potential, compete with the best, and connect with like-minded tech enthusiasts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--==========================
+      Buy Ticket Section
+    ============================-->
+    <section id="buy-tickets" class="section-with-bg wow fadeInUp">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Registration</h2>
+          <p>Choose any event to participate</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-body">
+                <h6 class="card-price text-center">Workshop</h6>
+                <hr>
+                <ul class="fa-ul">
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Conceptualization and design to coding and deployment</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Hands-on training</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Problem Solving Skills, Logical thinking</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Gain practical skills and insights</li>
+                </ul>
+                <hr>
+                <div class="text-center">
+                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal"
+                    data-ticket-type="pro-access">Register</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Order Form -->
+      <div id="buy-ticket-modal" class="modal fade">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Go for it!</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="ticket-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" class="form-control" name="your-name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="your-email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                  <select id="ticket-type" name="ticket-type" class="form-control" required>
+                    <option value="">-- Select Your Event Type --</option>
+                    <option value="standard-access">5 Aug</option>
+                    <option value="pro-access">6 Aug</option>
+                    <option value="premium-access">Both</option>
+                  </select>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn">Confirm</button>
+                </div>
+              </form>
+              <div id="bill-confirmation" class="mt-4" style="display:none;">
+                <h4>Registration Confirmation</h4>
+                <p>Name: <span id="confirm-name"></span></p>
+                <p>Email: <span id="confirm-email"></span></p>
+                <p>Event: <span id="confirm-event"></span></p>
+                <p>Price: <span id="confirm-price"></span></p>
+                <div class="text-center">
+                  <a id="google-calendar-link" href="#" target="_blank" class="btn btn-primary">Add to Calendar</a><br>
+                  <a href="/index/" class="text-black mt-4">Back to site</a>
+                </div>
+              </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    </section>
+  </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-6 col-md-6 footer-info">
+            <img src="/static/images/img/logo.png" alt="TheEvenet">
+            <p>Departmental event management system which schedules and handles all the events and its overall process in
+              BIET, DVG.</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              BIET<br>
+              Davangere, 577005<br>
+              Karnataka. <br>
+              <strong>Phone:</strong> +91 1234567809<br>
+              <strong>Email:</strong> TheEvenet@gmail.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="credits">
+        &copy; Copyright <strong>TheEvenet</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Design idea inspired by <a href=" ">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <!-- JavaScript Libraries -->
+<script src="/static/app1/jquery/jquery.min.js"></script>
+<script src="/static/app1/jquery/jquery-migrate.min.js"></script>
+<script src="/static/app1/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/app1/easing/easing.min.js"></script>
+<script src="/static/app1/superfish/hoverIntent.js"></script>
+<script src="/static/app1/superfish/superfish.min.js"></script>
+<script src="/static/app1/wow/wow.min.js"></script>
+<script src="/static/app1/venobox/venobox.min.js"></script>
+<script src="/static/app1/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Form JavaScript File -->
+<script src="/static/images/contactform/contactform.js"></script>
+
+<!-- Template Main Javascript File -->
+<script src="/static/js/main.js"></script>
+
+  <script>
+    document.getElementById('ticket-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.querySelector('input[name="your-name"]').value;
+      const email = document.querySelector('input[name="your-email"]').value;
+      const eventType = document.querySelector('select[name="ticket-type"]').value;
+
+      let eventName, eventPrice;
+      switch (eventType) {
+        case 'standard-access':
+          eventName = '5 Aug';
+          break;
+        case 'pro-access':
+          eventName = '6 Aug';
+          break;
+        case 'premium-access':
+          eventName = 'Both';
+          break;
+        default:
+          eventName = '';
+      }
+
+      document.getElementById('confirm-name').innerText = name;
+      document.getElementById('confirm-email').innerText = email;
+      document.getElementById('confirm-event').innerText = eventName;
+
+      const calendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventName)}&dates=20240728T090000Z/20240728T170000Z&details=${encodeURIComponent(`Event: ${eventName}\nPrice: ${eventPrice}`)}&location=${encodeURIComponent('BIET, Davangere, 577005')}`;
+      document.getElementById('google-calendar-link').href = calendarLink;
+
+      document.getElementById('bill-confirmation').style.display = 'block';
+    });
+  </script>
+</body>
+
+</html>
